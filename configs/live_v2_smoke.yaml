@@ -1,0 +1,57 @@
+# v2 live round (23 Oct 2026): n=10 per cell, 17 cells, one randomised order.
+# Fixes the n=5 under-powering and closes the proposal gaps on the same stack:
+#   M  main factors (fault x VT incl. the VT 600 baseline value, fault x MRC)
+#   B  batch size 1 / 10 / 50, and batch 50 + VT 600 (Kyrychenko 2025 optimum
+#      without the 300 s delivery delay, see report section on scope)
+#   L  burst load arriving at the start of the fault window
+#   D  downstream (datastore) failures
+#   S  synchronous API arm, same load and fault window as the M cells
+seed: 9901   # smoke copy: different seed so run ids never collide with live_v2.yaml
+defaults:
+  repeats: 10
+  randomise_order: true
+  fixed:
+    arm: queue
+    load_profile: normal
+    order_count: 200
+    rate_per_sec: 10
+    fault_start_s: 20
+    fault_window_s: 30
+    fault_rate: 0.25
+    drain_timeout_s: 180
+    sample_interval_s: 2
+    visibility_timeout: 30
+    max_receive_count: 5
+    batch_size: 10
+    max_concurrency: 5
+
+campaigns:
+  M_nofault:
+    fixed: {fault_mode: none}
+  M_kill_vt:
+    fixed: {fault_mode: consumer_kill}
+    matrix:
+      visibility_timeout: [30, 90]
+  M_kill_vt600:
+    fixed: {fault_mode: consumer_kill, visibility_timeout: 600, drain_timeout_s: 720}
+  M_error_mrc:
+    fixed: {fault_mode: unhandled_error}
+    matrix:
+      max_receive_count: [1, 5]
+  B_batch:
+    matrix:
+      batch_size: [1, 50]
+      fault_mode: [none, consumer_kill]
+  B_batch50_vt600:
+    fixed: {fault_mode: consumer_kill, batch_size: 50, visibility_timeout: 600, drain_timeout_s: 720}
+  L_burst:
+    fixed: {load_profile: burst, order_count: 500, burst_start_s: 20, burst_len_s: 10, burst_factor: 3}
+    matrix:
+      fault_mode: [none, consumer_kill]
+  D_downstream:
+    matrix:
+      fault_mode: [datastore_reject, datastore_timeout]
+  S_sync:
+    fixed: {arm: sync}
+    matrix:
+      fault_mode: [none, consumer_kill]

@@ -1,0 +1,31 @@
+# Live AWS key-cell smoke for CA2 residual evidence.
+# NOT a full 350-cell localsim redo. Four cells × 1 repeat, scaled load.
+# Contrasts: VT under consumer_kill; MRC under unhandled_error.
+# Beyond-CA2 confirmatory n=3 (same cells): configs/live_key_cells_n3.yaml.
+seed: 9001
+defaults:
+  repeats: 1
+  randomise_order: false
+  fixed:
+    arm: queue
+    load_profile: normal
+    order_count: 200          # lite: keep credit spend tiny
+    rate_per_sec: 10
+    fault_start_s: 20
+    fault_window_s: 30
+    fault_rate: 0.25
+    drain_timeout_s: 180
+    max_receive_count: 5
+    batch_size: 10
+
+campaigns:
+  L_vt_consumer_kill:
+    fixed: {fault_mode: consumer_kill}
+    matrix:
+      # 30 vs 90 (not 600) so recovery waits stay affordable live
+      visibility_timeout: [30, 90]
+
+  L_mrc_unhandled_error:
+    fixed: {fault_mode: unhandled_error, visibility_timeout: 30}
+    matrix:
+      max_receive_count: [1, 5]

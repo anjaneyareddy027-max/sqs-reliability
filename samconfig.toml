@@ -1,0 +1,42 @@
+# SAM CLI config. `sam deploy` uses [default]; `sam deploy --config-env pilot`
+# uses the pilot section. Region stays constant for the whole study.
+version = 0.1
+
+[default.global.parameters]
+stack_name = "sqs-rr-dev"
+
+[default.build.parameters]
+cached = true
+
+[default.validate.parameters]
+lint = true
+
+[default.deploy.parameters]
+capabilities = "CAPABILITY_IAM"
+confirm_changeset = true
+resolve_s3 = true
+region = "eu-west-1"
+parameter_overrides = "Stage=dev VisibilityTimeout=30 MaxReceiveCount=5 BatchSize=10"
+tags = "project=\"sqs-reliability-recovery\""
+
+[pilot.global.parameters]
+stack_name = "sqs-rr-pilot"
+
+[pilot.deploy.parameters]
+capabilities = "CAPABILITY_IAM"
+confirm_changeset = false
+resolve_s3 = true
+region = "eu-west-1"
+parameter_overrides = "Stage=pilot VisibilityTimeout=30 MaxReceiveCount=5 BatchSize=10"
+tags = "project=\"sqs-reliability-recovery\""
+
+[exp.global.parameters]
+stack_name = "sqs-rr-exp"
+
+[exp.deploy.parameters]
+capabilities = "CAPABILITY_IAM"
+confirm_changeset = false
+resolve_s3 = true
+region = "eu-west-1"
+parameter_overrides = "Stage=exp VisibilityTimeout=30 MaxReceiveCount=5 BatchSize=10"
+tags = "project=\"sqs-reliability-recovery\""

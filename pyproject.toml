@@ -1,0 +1,23 @@
+[project]
+name = "sqs-reliability-recovery"
+version = "0.1.0"
+description = "Reliability and recovery of Amazon SQS messaging under injected consumer and downstream failures (MSc Cloud Computing artefact)"
+requires-python = ">=3.11"
+readme = "README.md"
+
+[tool.pytest.ini_options]
+# "." so `import src` works, "src" so the lambda style `import common` works
+pythonpath = [".", "src"]
+testpaths = ["tests"]
+addopts = "-q"
+markers = [
+    "slow: runs a bigger simulation (still only seconds)",
+]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W"]
+ignore = ["E501"]

@@ -1,0 +1,95 @@
+# Analysis plan - fixed after the pilot and BEFORE the main collection.
+# If anything has to change later, do not edit silently: add an entry under
+# `amendments` with the date and the reason.
+version: 1
+fixed_on: 2026-09-11
+alpha: 0.05
+correction: holm            # Holm-Bonferroni across the confirmatory family
+
+normality:
+  test: shapiro             # per group; all groups must pass for ANOVA
+  alpha: 0.05
+tests:
+  parametric: {test: one_way_anova, effect_size: eta_squared}
+  nonparametric: {test: kruskal_wallis, effect_size: epsilon_squared}
+  two_group: {test: mann_whitney_u, effect_size: rank_biserial}
+ci:
+  method: bootstrap_percentile
+  level: 0.95
+  resamples: 5000
+  seed: 1
+
+# effects smaller than this are called negligible even if p is small
+negligible:
+  eta_squared: 0.01
+  epsilon_squared: 0.01
+  rank_biserial: 0.1
+
+decision_rule: >
+  A null hypothesis is rejected only if the Holm-adjusted p-value is below
+  alpha AND the effect size is above the negligible threshold.
+
+repeats_per_cell: 5         # checked against the pilot, see analysis/stats_tests.py --power
+
+primary_recovery_dv: recovery_time_s          # backlog = visible + in flight + delayed
+sensitivity_recovery_dv: recovery_time_visible_s   # the master prompt wording (visible only)
+censoring: >
+  Runs that never get back into the band before the horizon are set to the
+  time they were watched for (a lower bound) and only rank based tests are
+  used on recovery time.
+
+throughput_optimal_rule: >
+  From the no-fault baseline pick the batch size with the highest median
+  throughput. Visibility timeout is expected to have no effect without
+  failures; if so the Kyrychenko et al. (2025) recommendation (600 s) is used
+  as the "guidance" visibility timeout.
+
+confirmatory:               # the Holm family
+  H1:
+    null: visibility timeout has no effect on message-loss rate under consumer failure
+    campaign: A_vt_consumer_kill
+    dv: loss_rate
+    iv: visibility_timeout
+  H2:
+    null: retry limit (maxReceiveCount) has no effect on recovery time
+    campaign: B_mrc_unhandled_error
+    dv: recovery_time_s
+    iv: max_receive_count
+  H3_loss:
+    null: the throughput-optimal configuration does not differ from the alternatives in loss under fault
+    campaign: E_guidance_transfer
+    dv: loss_rate
+    optimal: {visibility_timeout: 600, batch_size: 50}
+  H3_recovery:
+    null: the throughput-optimal configuration does not differ from the alternatives in recovery time under fault
+    campaign: E_guidance_transfer
+    dv: recovery_time_s
+    optimal: {visibility_timeout: 600, batch_size: 50}
+
+exploratory:                # reported with effect sizes, not part of the family
+  - {campaign: B_mrc_unhandled_error, dv: dlq_capture_rate, iv: max_receive_count}
+  - {campaign: C_mrc_datastore_reject, dv: dlq_capture_rate, iv: max_receive_count}
+  - {campaign: C_mrc_datastore_reject, dv: recovery_time_s, iv: max_receive_count}
+  - {campaign: D_vt_datastore_timeout, dv: recovery_time_s, iv: visibility_timeout}
+  - {campaign: A_vt_consumer_kill, dv: recovery_time_s, iv: visibility_timeout}
+  - {campaign: A_vt_consumer_kill, dv: duplicate_rate, iv: visibility_timeout}
+  - {campaign: baseline_vt_batch, dv: throughput_msg_s, iv: batch_size}
+  - {campaign: baseline_vt_batch, dv: throughput_msg_s, iv: visibility_timeout}
+
+amendments:
+  - date: 2026-09-20
+    what: >
+      Analysis loader deduplicates adaptive_vt packaging twins (same campaign,
+      cell, repeat, seed, and metrics; distinct run_id only because
+      spec.adaptive_vt:false was added later). Confirmatory n returns to
+      repeats_per_cell=5 / 350 unique design cells. Prior stats JSON that
+      reported n=10 / runs=670–690 double-counted packaging twins and is withdrawn.
+    why: claim↔evidence reconcile; do not invent independent repeats
+  - date: 2026-09-11
+    what: >
+      Pilot power check now sizes the repeat count on the confirmatory DVs
+      only (loss rate, recovery time). The pilot needed 3 per cell for those,
+      so repeats_per_cell stays at 5. Duplicate-rate comparisons would need
+      about 19 per cell for an MDE of 0.02, so duplicates are reported
+      descriptively / as exploratory only (they were never in the family).
+    why: the first version mixed an exploratory DV into the repeat decision

@@ -1,0 +1,31 @@
+# Beyond-CA2 localsim sensitivity: same 4 lite cells, n=1, ESM poller cap 2 vs 5.
+# Proxy for sharing ConcurrentExecutions=10 with another campaign (do not treat
+# as live AWS measurements).
+seed: 9003
+defaults:
+  repeats: 1
+  randomise_order: false
+  fixed:
+    arm: queue
+    load_profile: normal
+    order_count: 200
+    rate_per_sec: 10
+    fault_start_s: 20
+    fault_window_s: 30
+    fault_rate: 0.25
+    drain_timeout_s: 180
+    max_receive_count: 5
+    batch_size: 10
+
+campaigns:
+  S_vt_consumer_kill:
+    fixed: {fault_mode: consumer_kill}
+    matrix:
+      visibility_timeout: [30, 90]
+      max_concurrency: [2, 5]
+
+  S_mrc_unhandled_error:
+    fixed: {fault_mode: unhandled_error, visibility_timeout: 30}
+    matrix:
+      max_receive_count: [1, 5]
+      max_concurrency: [2, 5]

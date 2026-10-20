@@ -1,0 +1,13 @@
+{
+  "version": "2.0",
+  "routeKey": "POST /orders",
+  "rawPath": "/orders",
+  "headers": {"content-type": "application/json"},
+  "requestContext": {
+    "http": {"method": "POST", "path": "/orders"},
+    "requestId": "demo-request-1",
+    "stage": "$default"
+  },
+  "body": "{\"amount_cents\": 2598, \"created_at\": 0.0, \"customer_ref\": \"CUST-00042\", \"items\": 2, \"order_id\": \"demo-000003-9c0d1e2f\", \"poison\": false, \"run_id\": \"demo\"}",
+  "isBase64Encoded": false
+}

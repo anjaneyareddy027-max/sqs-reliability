@@ -1,0 +1,43 @@
+# Phase 3 - replicate the steady-state configuration study first.
+#
+# Baseline: Kyrychenko, Ostapov & Kyrychenko (2025) "Optimization of SQS
+# configurations for efficient batch data processing", WSEAS Trans. Systems 24,
+# pp. 36-43, doi:10.37394/23202.2025.24.4
+#
+# They process a 500,000 record batch through SQS + Lambda, vary batch size
+# (10-100), visibility timeout (10-900 s) and delivery delay (0-900 s), with
+# healthy consumers only, and recommend batch ~50 / VT 600 s / delay 300 s.
+#
+# Here: same idea at a reduced scale (5,000 records per run, reported as
+# rates + normalised throughput), no faults, VT x batch grid, randomised order.
+seed: 2025
+defaults:
+  repeats: 5
+  randomise_order: true
+  fixed:
+    arm: queue
+    fault_mode: none
+    max_receive_count: 5
+    delivery_delay: 0
+
+campaigns:
+  baseline_vt_batch:
+    fixed:
+      load_profile: batch     # pre-loaded backlog, like their batch job
+      order_count: 5000
+    matrix:
+      visibility_timeout: [30, 60, 120, 300, 600]
+      batch_size: [1, 10, 25, 50]
+
+  # small side study: delivery delay under steady arrivals. In a healthy
+  # system it should only shift latency by the delay, nothing else.
+  baseline_delay:
+    repeats: 3
+    fixed:
+      load_profile: normal
+      order_count: 1200
+      rate_per_sec: 20
+      visibility_timeout: 600
+      batch_size: 50
+    matrix:
+      delivery_delay: [0, 60, 300]

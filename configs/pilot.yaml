@@ -1,0 +1,21 @@
+# Pilot: small and quick. Used to (1) check the rig end to end and
+# (2) get a feel for the variance so the repeat count of the main campaigns
+# can be fixed before collecting them (see configs/analysis_plan.yaml).
+name: pilot
+repeats: 3
+seed: 7
+randomise_order: true
+fixed:
+  arm: queue
+  load_profile: normal
+  order_count: 900        # 10 msg/s for 90 s
+  rate_per_sec: 10
+  fault_start_s: 30
+  fault_window_s: 30
+  fault_rate: 0.25
+  drain_timeout_s: 300
+  max_receive_count: 5
+  batch_size: 10
+matrix:
+  fault_mode: [none, consumer_kill, unhandled_error]
+  visibility_timeout: [30, 120]

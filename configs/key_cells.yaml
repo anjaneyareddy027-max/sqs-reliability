@@ -1,0 +1,32 @@
+# Burst replication of the key cells of campaigns A and B.
+# The burst (5x the base rate for 20 s) starts just before the fault window
+# so the queue is already under pressure when the consumer breaks.
+seed: 5151
+defaults:
+  repeats: 5
+  randomise_order: true
+  fixed:
+    arm: queue
+    load_profile: burst
+    order_count: 5200          # 20 msg/s for 180 s + the burst
+    rate_per_sec: 20
+    burst_start_s: 50
+    burst_len_s: 20
+    burst_factor: 5
+    fault_start_s: 60
+    fault_window_s: 60
+    fault_rate: 0.25
+    drain_timeout_s: 900
+    max_receive_count: 5
+    batch_size: 10
+
+campaigns:
+  G_burst_vt_consumer_kill:
+    fixed: {fault_mode: consumer_kill}
+    matrix:
+      visibility_timeout: [30, 600]
+
+  G_burst_mrc_unhandled_error:
+    fixed: {fault_mode: unhandled_error, visibility_timeout: 30}
+    matrix:
+      max_receive_count: [1, 10]

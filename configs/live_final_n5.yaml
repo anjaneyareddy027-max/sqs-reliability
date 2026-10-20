@@ -1,0 +1,29 @@
+# Final live AWS round: same 4 key cells plus a no-fault reference cell, n=5 each.
+seed: 7105
+defaults:
+  repeats: 5
+  randomise_order: true
+  fixed:
+    arm: queue
+    load_profile: normal
+    order_count: 200
+    rate_per_sec: 10
+    fault_start_s: 20
+    fault_window_s: 30
+    fault_rate: 0.25
+    drain_timeout_s: 180
+    max_receive_count: 5
+    batch_size: 10
+    max_concurrency: 5
+
+campaigns:
+  L_nofault_reference:
+    fixed: {fault_mode: none, visibility_timeout: 30}
+  L_vt_consumer_kill:
+    fixed: {fault_mode: consumer_kill}
+    matrix:
+      visibility_timeout: [30, 90]
+  L_mrc_unhandled_error:
+    fixed: {fault_mode: unhandled_error, visibility_timeout: 30}
+    matrix:
+      max_receive_count: [1, 5]

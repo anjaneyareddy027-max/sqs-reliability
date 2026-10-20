@@ -1,0 +1,11 @@
+# runner + analysis (the Lambda functions themselves only need boto3,
+# which the python3.12 runtime already ships, see src/requirements.txt)
+boto3>=1.34
+pyyaml>=6.0
+python-dotenv>=1.0
+numpy>=1.26
+pandas>=2.1
+scipy>=1.11
+matplotlib>=3.8
+seaborn>=0.13
+statsmodels>=0.14

@@ -1,0 +1,7 @@
+-r requirements.txt
+pytest>=8.0
+moto[sqs,dynamodb,ssm]>=5.0
+cfn-lint>=1.0
+ruff>=0.5
+# aws-sam-cli is big, install it on its own when you want `sam build/deploy`:
+#   pip install aws-sam-cli

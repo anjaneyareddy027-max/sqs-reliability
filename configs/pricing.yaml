@@ -1,0 +1,21 @@
+# Rough on-demand list prices in USD, used ONLY for the cost proxy and the
+# pre-run cost guard. They are deliberately a bit pessimistic and ignore the
+# free tier. Check https://aws.amazon.com/pricing/ for your region before a
+# live campaign and update these numbers if they moved.
+prices:
+  lambda_per_gb_s: 0.0000166667        # x86, per GB-second
+  lambda_per_million_requests: 0.20
+  sqs_per_million_requests: 0.40       # standard queue, 64 KB chunks
+  dynamodb_per_million_writes: 1.25    # on-demand write request units (conservative)
+  api_per_million_requests: 1.00       # HTTP API
+  # v2 additions (checked 23 Oct 2026, eu-west-1): CloudWatch Logs standard
+  # ingestion is $0.57/GB in Ireland, CloudWatch API requests
+  # (GetMetricStatistics) $0.01 per 1,000. Reads are priced at one fifth of a
+  # write, the same ratio as the write price above.
+  dynamodb_per_million_reads: 0.25
+  logs_per_gb_ingested: 0.57
+  cloudwatch_per_thousand_api_requests: 0.01
+notes: >
+  Free tier (1M Lambda requests, 400k GB-s, 1M SQS requests per month) is not
+  subtracted, so real bills for pilot sized runs should be lower than this.
+  v1 (14 Oct) left the orders-table writes out of the proxy; v2 counts them.

@@ -1,0 +1,36 @@
+{
+  "Records": [
+    {
+      "messageId": "059f36b4-87a3-44ab-83d2-661975830a7d",
+      "receiptHandle": "AQEBwJnKyrHigUMZj6rYigCgxlaS3SLy0a",
+      "body": "{\"amount_cents\": 2598, \"created_at\": 0.0, \"customer_ref\": \"CUST-00042\", \"items\": 2, \"order_id\": \"demo-000001-1a2b3c4d\", \"poison\": false, \"run_id\": \"demo\"}",
+      "attributes": {
+        "ApproximateReceiveCount": "1",
+        "SentTimestamp": "1757590000000",
+        "SenderId": "AIDAIENQZJOLO23YVJ4VO",
+        "ApproximateFirstReceiveTimestamp": "1757590000100"
+      },
+      "messageAttributes": {},
+      "md5OfBody": "e4e68fb7bd0e697a0ae8f1bb342846b3",
+      "eventSource": "aws:sqs",
+      "eventSourceARN": "arn:aws:sqs:eu-west-1:123456789012:sqs-rr-dev-orders",
+      "awsRegion": "eu-west-1"
+    },
+    {
+      "messageId": "2e1424d4-f796-459a-8184-9c92662be6da",
+      "receiptHandle": "AQEBzWwaftRI0KuVm4tP+/7q1rGgNqicHq",
+      "body": "{\"amount_cents\": 999, \"created_at\": 0.0, \"customer_ref\": \"CUST-01337\", \"items\": 1, \"order_id\": \"demo-000002-5e6f7a8b\", \"poison\": false, \"run_id\": \"demo\"}",
+      "attributes": {
+        "ApproximateReceiveCount": "1",
+        "SentTimestamp": "1757590000200",
+        "SenderId": "AIDAIENQZJOLO23YVJ4VO",
+        "ApproximateFirstReceiveTimestamp": "1757590000300"
+      },
+      "messageAttributes": {},
+      "md5OfBody": "e4e68fb7bd0e697a0ae8f1bb342846b3",
+      "eventSource": "aws:sqs",
+      "eventSourceARN": "arn:aws:sqs:eu-west-1:123456789012:sqs-rr-dev-orders",
+      "awsRegion": "eu-west-1"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+# Phase 4 - sync (control) vs queue (treatment) arm, matched load, no fault.
+name: arms_no_fault
+repeats: 5
+seed: 99
+randomise_order: true
+fixed:
+  load_profile: normal
+  order_count: 3600
+  rate_per_sec: 20
+  fault_mode: none
+  visibility_timeout: 30
+  max_receive_count: 5
+  batch_size: 10
+matrix:
+  arm: [sync, queue]

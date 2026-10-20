@@ -1,0 +1,23 @@
+# Short CI round: one no-fault run and one consumer-kill run (n=1 each).
+seed: 4242
+defaults:
+  repeats: 1
+  randomise_order: false
+  fixed:
+    arm: queue
+    load_profile: normal
+    order_count: 100
+    rate_per_sec: 10
+    fault_start_s: 10
+    fault_window_s: 20
+    fault_rate: 0.25
+    drain_timeout_s: 120
+    max_receive_count: 5
+    batch_size: 10
+    visibility_timeout: 30
+    max_concurrency: 2
+campaigns:
+  ci_nofault:
+    fixed: {fault_mode: none}
+  ci_consumer_kill:
+    fixed: {fault_mode: consumer_kill}
