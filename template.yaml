@@ -1,0 +1,231 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  SQS reliability and recovery rig (MSc Cloud Computing research artefact).
+  Control arm: HTTP API -> Lambda -> DynamoDB (synchronous).
+  Treatment arm: SQS Standard queue (+ DLQ) -> Lambda -> DynamoDB.
+  Faults are injected in-process, switched through one SSM parameter.
+
+Parameters:
+  AdaptiveVT:
+    Type: String
+    Default: "0"
+    AllowedValues: ["0", "1"]
+  Stage:
+    Type: String
+    Default: dev
+    AllowedValues: [dev, pilot, exp]
+  VisibilityTimeout:
+    Type: Number
+    Default: 30
+    MinValue: 15            # must stay >= ConsumerTimeout or the mapping is rejected
+    MaxValue: 43200
+  MaxReceiveCount:
+    Type: Number
+    Default: 5
+    MinValue: 1
+    MaxValue: 1000
+  BatchSize:
+    Type: Number
+    Default: 10
+    MinValue: 1
+    MaxValue: 10000
+  BatchingWindowSeconds:
+    Type: Number
+    Default: 1              # needed for BatchSize > 10, kept at 1 for every run
+    MinValue: 0
+    MaxValue: 300
+  ConsumerTimeout:
+    Type: Number
+    Default: 15
+    MinValue: 1
+    MaxValue: 900
+  MaxConcurrency:
+    Type: Number
+    Default: 5
+    MinValue: 2
+    MaxValue: 1000
+  LogRetentionDays:
+    Type: Number
+    Default: 7
+    AllowedValues: [1, 3, 5, 7, 14]
+
+Globals:
+  Function:
+    Runtime: python3.12
+    MemorySize: 256
+    Architectures: [x86_64]
+    CodeUri: src/
+    Tags:
+      project: sqs-reliability-recovery
+      stage: !Ref Stage
+    Environment:
+      Variables:
+        ORDERS_TABLE: !Ref OrdersTable
+        EVENTS_TABLE: !Ref EventsTable
+        FAULT_PARAM_NAME: !Ref FaultParameter
+        FAULT_HARD_KILL: "1"
+        IDEMPOTENCY: "on"
+        STAGE: !Ref Stage
+
+Resources:
+  OrdersDLQ:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: !Sub sqs-rr-${Stage}-orders-dlq
+      MessageRetentionPeriod: 1209600   # 14 days, the maximum
+      SqsManagedSseEnabled: true
+
+  OrdersQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: !Sub sqs-rr-${Stage}-orders
+      VisibilityTimeout: !Ref VisibilityTimeout
+      ReceiveMessageWaitTimeSeconds: 20  # long polling, held constant
+      MessageRetentionPeriod: 345600     # 4 days (default)
+      SqsManagedSseEnabled: true
+      RedrivePolicy:
+        deadLetterTargetArn: !GetAtt OrdersDLQ.Arn
+        maxReceiveCount: !Ref MaxReceiveCount
+
+  OrdersTable:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Delete
+    UpdateReplacePolicy: Delete
+    Properties:
+      TableName: !Sub sqs-rr-${Stage}-orders
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: order_id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: order_id
+          KeyType: HASH
+
+  EventsTable:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Delete
+    UpdateReplacePolicy: Delete
+    Properties:
+      TableName: !Sub sqs-rr-${Stage}-events
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: run_id
+          AttributeType: S
+        - AttributeName: event_id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: run_id
+          KeyType: HASH
+        - AttributeName: event_id
+          KeyType: RANGE
+      TimeToLiveSpecification:
+        AttributeName: expires_at
+        Enabled: true
+
+  FaultParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: !Sub /sqs-rr/${Stage}/fault
+      Type: String
+      Description: Fault switch read by both functions (JSON FaultConfig)
+      Value: '{"mode": "none", "rate": 0.0, "window_start": null, "window_end": null, "point": "auto"}'
+
+  QueueConsumerFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub sqs-rr-${Stage}-queue-consumer
+      Description: SQS event source consumer (treatment arm)
+      Handler: queue_consumer.handler.lambda_handler
+      Timeout: !Ref ConsumerTimeout
+      Environment:
+        Variables:
+          ADAPTIVE_VT: !Ref AdaptiveVT
+          QUEUE_URL: !Ref OrdersQueue
+      Policies:
+        # only what the handler uses: conditional put + the exists() lookup
+        - Statement:
+            - Effect: Allow
+              Action:
+                - dynamodb:PutItem
+                - dynamodb:GetItem
+              Resource: !GetAtt OrdersTable.Arn
+        - Statement:
+            - Effect: Allow
+              Action:
+                - sqs:ChangeMessageVisibility
+              Resource: !GetAtt OrdersQueue.Arn
+        - DynamoDBWritePolicy:
+            TableName: !Ref EventsTable
+        - SSMParameterReadPolicy:
+            ParameterName: !Sub sqs-rr/${Stage}/fault
+      Events:
+        SqsEvent:
+          Type: SQS
+          Properties:
+            Queue: !GetAtt OrdersQueue.Arn
+            BatchSize: !Ref BatchSize
+            MaximumBatchingWindowInSeconds: !Ref BatchingWindowSeconds
+            FunctionResponseTypes:
+              - ReportBatchItemFailures
+            ScalingConfig:
+              MaximumConcurrency: !Ref MaxConcurrency
+
+  QueueConsumerLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub /aws/lambda/${QueueConsumerFunction}
+      RetentionInDays: !Ref LogRetentionDays
+
+  SyncProcessorFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub sqs-rr-${Stage}-sync-processor
+      Description: Synchronous order processor behind an HTTP API (control arm)
+      Handler: sync_api.app.lambda_handler
+      Timeout: 10
+      Policies:
+        # only what the handler uses: conditional put + the exists() lookup
+        - Statement:
+            - Effect: Allow
+              Action:
+                - dynamodb:PutItem
+                - dynamodb:GetItem
+              Resource: !GetAtt OrdersTable.Arn
+        - DynamoDBWritePolicy:
+            TableName: !Ref EventsTable
+        - SSMParameterReadPolicy:
+            ParameterName: !Sub sqs-rr/${Stage}/fault
+      Events:
+        PostOrder:
+          Type: HttpApi
+          Properties:
+            Path: /orders
+            Method: POST
+
+  SyncProcessorLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub /aws/lambda/${SyncProcessorFunction}
+      RetentionInDays: !Ref LogRetentionDays
+
+Outputs:
+  OrdersQueueUrl:
+    Value: !Ref OrdersQueue
+  OrdersQueueArn:
+    Value: !GetAtt OrdersQueue.Arn
+  OrdersDlqUrl:
+    Value: !Ref OrdersDLQ
+  SyncApiUrl:
+    Value: !Sub https://${ServerlessHttpApi}.execute-api.${AWS::Region}.${AWS::URLSuffix}/orders
+  OrdersTableName:
+    Value: !Ref OrdersTable
+  EventsTableName:
+    Value: !Ref EventsTable
+  QueueConsumerFunctionName:
+    Value: !Ref QueueConsumerFunction
+  ConsumerMappingId:
+    Description: event source mapping UUID (the runner updates batch size through it)
+    Value: !Ref QueueConsumerFunctionSqsEvent
+  FaultParamName:
+    Value: !Ref FaultParameter
