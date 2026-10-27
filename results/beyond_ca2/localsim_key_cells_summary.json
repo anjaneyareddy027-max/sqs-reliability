@@ -1,0 +1,760 @@
+{
+  "kind": "beyond-CA2 key-cell aggregation",
+  "inputs": [
+    "results/localsim/key_cells_n3",
+    "results/localsim/key_cells_concurrency"
+  ],
+  "total_manifests": 20,
+  "campaigns": [
+    {
+      "dir": "results/localsim/key_cells_n3",
+      "runs": 12,
+      "backend": [
+        "localsim"
+      ],
+      "cells": [
+        {
+          "campaign": "L_mrc_unhandled_error",
+          "fault_mode": "unhandled_error",
+          "visibility_timeout": 30,
+          "max_receive_count": 1,
+          "max_concurrency": 5,
+          "n_manifests": 3,
+          "backend": "localsim",
+          "loss_rate": {
+            "n": 3,
+            "n_missing": 0,
+            "mean": 0.0,
+            "sd": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "duplicate_rate": {
+            "n": 3,
+            "n_missing": 0,
+            "mean": 0.0,
+            "sd": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "dlq_capture_rate": {
+            "n": 3,
+            "n_missing": 0,
+            "mean": 0.049999999999999996,
+            "sd": 0.0458257569495584,
+            "min": 0.0,
+            "max": 0.09
+          },
+          "recovery_time_s": {
+            "n": 3,
+            "n_missing": 0,
+            "mean": 1.6666666666666667,
+            "sd": 2.8867513459481287,
+            "min": 0.0,
+            "max": 5.0
+          },
+          "throughput_msg_s": {
+            "n": 3,
+            "n_missing": 0,
+            "mean": 9.05497897455767,
+            "sd": 1.0809888646473893,
+            "min": 7.9383125163706865,
+            "max": 10.096353549046931
+          },
+          "success_rate": {
+            "n": 3,
+            "n_missing": 0,
+            "mean": 0.9683333333333334,
+            "sd": 0.03253203549323853,
+            "min": 0.935,
+            "max": 1.0
+          },
+          "run_ids": [
+            "433e9989-c7a7-5ed5-b86d-b1bddefdff78",
+            "4658ac18-bfaa-5461-a043-2d2dc1efffc7",
+            "84eba0b2-62ac-5448-aa5b-1fb14a63e52d"
+          ]
+        },
+        {
+          "campaign": "L_mrc_unhandled_error",
+          "fault_mode": "unhandled_error",
+          "visibility_timeout": 30,
+          "max_receive_count": 5,
+          "max_concurrency": 5,
+          "n_manifests": 3,
+          "backend": "localsim",
+          "loss_rate": {
+            "n": 3,
+            "n_missing": 0,
+            "mean": 0.0,
+            "sd": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "duplicate_rate": {
+            "n": 3,
+            "n_missing": 0,
+            "mean": 0.013333333333333334,
+            "sd": 0.012583057392117916,
+            "min": 0.0,
+            "max": 0.025
+          },
+          "dlq_capture_rate": {
+            "n": 3,
+            "n_missing": 0,
+            "mean": 0.0,
+            "sd": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "recovery_time_s": {
+            "n": 3,
+            "n_missing": 0,
+            "mean": 1.6666666666666667,
+            "sd": 2.8867513459481287,
+            "min": 0.0,
+            "max": 5.0
+          },
+          "throughput_msg_s": {
+            "n": 3,
+            "n_missing": 0,
+            "mean": 7.761524845703998,
+            "sd": 3.340967175743817,
+            "min": 3.906456490265335,
+            "max": 9.81514490910924
+          },
+          "success_rate": {
+            "n": 3,
+            "n_missing": 0,
+            "mean": 1.0,
+            "sd": 0.0,
+            "min": 1.0,
+            "max": 1.0
+          },
+          "run_ids": [
+            "11966599-fb04-596f-ad58-7830aa1c30be",
+            "61d37936-8bd8-516e-a5ff-918231467af7",
+            "db9955dc-f6c2-5ffe-a6f3-1a05e0bd5619"
+          ]
+        },
+        {
+          "campaign": "L_vt_consumer_kill",
+          "fault_mode": "consumer_kill",
+          "visibility_timeout": 30,
+          "max_receive_count": 5,
+          "max_concurrency": 5,
+          "n_manifests": 3,
+          "backend": "localsim",
+          "loss_rate": {
+            "n": 3,
+            "n_missing": 0,
+            "mean": 0.0,
+            "sd": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "duplicate_rate": {
+            "n": 3,
+            "n_missing": 0,
+            "mean": 0.0016666666666666668,
+            "sd": 0.002886751345948129,
+            "min": 0.0,
+            "max": 0.005
+          },
+          "dlq_capture_rate": {
+            "n": 3,
+            "n_missing": 0,
+            "mean": 0.0,
+            "sd": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "recovery_time_s": {
+            "n": 3,
+            "n_missing": 0,
+            "mean": 0.0,
+            "sd": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "throughput_msg_s": {
+            "n": 3,
+            "n_missing": 0,
+            "mean": 8.316235021114293,
+            "sd": 3.7693546112298395,
+            "min": 3.9781106863205973,
+            "max": 10.791143762961015
+          },
+          "success_rate": {
+            "n": 3,
+            "n_missing": 0,
+            "mean": 1.0,
+            "sd": 0.0,
+            "min": 1.0,
+            "max": 1.0
+          },
+          "run_ids": [
+            "312c8283-f83c-58a4-a8a8-ce44d55309b5",
+            "5b47cda4-ced7-5753-8d25-f4596ff4c688",
+            "81967d67-e3e9-58a2-a809-8c13ee81cc9a"
+          ]
+        },
+        {
+          "campaign": "L_vt_consumer_kill",
+          "fault_mode": "consumer_kill",
+          "visibility_timeout": 90,
+          "max_receive_count": 5,
+          "max_concurrency": 5,
+          "n_manifests": 3,
+          "backend": "localsim",
+          "loss_rate": {
+            "n": 3,
+            "n_missing": 0,
+            "mean": 0.0,
+            "sd": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "duplicate_rate": {
+            "n": 3,
+            "n_missing": 0,
+            "mean": 0.006666666666666667,
+            "sd": 0.007637626158259733,
+            "min": 0.0,
+            "max": 0.015
+          },
+          "dlq_capture_rate": {
+            "n": 3,
+            "n_missing": 0,
+            "mean": 0.0,
+            "sd": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "recovery_time_s": {
+            "n": 3,
+            "n_missing": 0,
+            "mean": 0.0,
+            "sd": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "throughput_msg_s": {
+            "n": 3,
+            "n_missing": 0,
+            "mean": 4.888631212691922,
+            "sd": 5.33594065901612,
+            "min": 1.8049673340223646,
+            "max": 11.05004381796196
+          },
+          "success_rate": {
+            "n": 3,
+            "n_missing": 0,
+            "mean": 1.0,
+            "sd": 0.0,
+            "min": 1.0,
+            "max": 1.0
+          },
+          "run_ids": [
+            "4e9ab3fd-e053-5771-a4bc-7539bcf48f1a",
+            "55d55073-8262-501f-a790-2b76eec19fca",
+            "f5933a35-168d-5d7c-a400-b0eabdb0e4a2"
+          ]
+        }
+      ]
+    },
+    {
+      "dir": "results/localsim/key_cells_concurrency",
+      "runs": 8,
+      "backend": [
+        "localsim"
+      ],
+      "cells": [
+        {
+          "campaign": "S_mrc_unhandled_error",
+          "fault_mode": "unhandled_error",
+          "visibility_timeout": 30,
+          "max_receive_count": 1,
+          "max_concurrency": 2,
+          "n_manifests": 1,
+          "backend": "localsim",
+          "loss_rate": {
+            "n": 1,
+            "n_missing": 0,
+            "mean": 0.0,
+            "sd": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "duplicate_rate": {
+            "n": 1,
+            "n_missing": 0,
+            "mean": 0.0,
+            "sd": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "dlq_capture_rate": {
+            "n": 1,
+            "n_missing": 0,
+            "mean": 0.055,
+            "sd": 0.0,
+            "min": 0.055,
+            "max": 0.055
+          },
+          "recovery_time_s": {
+            "n": 1,
+            "n_missing": 0,
+            "mean": 5.0,
+            "sd": 0.0,
+            "min": 5.0,
+            "max": 5.0
+          },
+          "throughput_msg_s": {
+            "n": 1,
+            "n_missing": 0,
+            "mean": 9.23631049073383,
+            "sd": 0.0,
+            "min": 9.23631049073383,
+            "max": 9.23631049073383
+          },
+          "success_rate": {
+            "n": 1,
+            "n_missing": 0,
+            "mean": 0.975,
+            "sd": 0.0,
+            "min": 0.975,
+            "max": 0.975
+          },
+          "run_ids": [
+            "62ffa849-962a-50a4-820b-a7b07d1dabef"
+          ]
+        },
+        {
+          "campaign": "S_mrc_unhandled_error",
+          "fault_mode": "unhandled_error",
+          "visibility_timeout": 30,
+          "max_receive_count": 1,
+          "max_concurrency": 5,
+          "n_manifests": 1,
+          "backend": "localsim",
+          "loss_rate": {
+            "n": 1,
+            "n_missing": 0,
+            "mean": 0.0,
+            "sd": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "duplicate_rate": {
+            "n": 1,
+            "n_missing": 0,
+            "mean": 0.0,
+            "sd": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "dlq_capture_rate": {
+            "n": 1,
+            "n_missing": 0,
+            "mean": 0.005,
+            "sd": 0.0,
+            "min": 0.005,
+            "max": 0.005
+          },
+          "recovery_time_s": {
+            "n": 1,
+            "n_missing": 0,
+            "mean": 0.0,
+            "sd": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "throughput_msg_s": {
+            "n": 1,
+            "n_missing": 0,
+            "mean": 9.650645660394918,
+            "sd": 0.0,
+            "min": 9.650645660394918,
+            "max": 9.650645660394918
+          },
+          "success_rate": {
+            "n": 1,
+            "n_missing": 0,
+            "mean": 0.995,
+            "sd": 0.0,
+            "min": 0.995,
+            "max": 0.995
+          },
+          "run_ids": [
+            "6927093e-f788-51b5-8167-e8f954cc91a4"
+          ]
+        },
+        {
+          "campaign": "S_mrc_unhandled_error",
+          "fault_mode": "unhandled_error",
+          "visibility_timeout": 30,
+          "max_receive_count": 5,
+          "max_concurrency": 2,
+          "n_manifests": 1,
+          "backend": "localsim",
+          "loss_rate": {
+            "n": 1,
+            "n_missing": 0,
+            "mean": 0.0,
+            "sd": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "duplicate_rate": {
+            "n": 1,
+            "n_missing": 0,
+            "mean": 0.005,
+            "sd": 0.0,
+            "min": 0.005,
+            "max": 0.005
+          },
+          "dlq_capture_rate": {
+            "n": 1,
+            "n_missing": 0,
+            "mean": 0.0,
+            "sd": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "recovery_time_s": {
+            "n": 1,
+            "n_missing": 0,
+            "mean": 0.0,
+            "sd": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "throughput_msg_s": {
+            "n": 1,
+            "n_missing": 0,
+            "mean": 3.9330580646606186,
+            "sd": 0.0,
+            "min": 3.9330580646606186,
+            "max": 3.9330580646606186
+          },
+          "success_rate": {
+            "n": 1,
+            "n_missing": 0,
+            "mean": 1.0,
+            "sd": 0.0,
+            "min": 1.0,
+            "max": 1.0
+          },
+          "run_ids": [
+            "8fac3d1d-7a15-580d-80d3-22ee0b822c7e"
+          ]
+        },
+        {
+          "campaign": "S_mrc_unhandled_error",
+          "fault_mode": "unhandled_error",
+          "visibility_timeout": 30,
+          "max_receive_count": 5,
+          "max_concurrency": 5,
+          "n_manifests": 1,
+          "backend": "localsim",
+          "loss_rate": {
+            "n": 1,
+            "n_missing": 0,
+            "mean": 0.0,
+            "sd": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "duplicate_rate": {
+            "n": 1,
+            "n_missing": 0,
+            "mean": 0.03,
+            "sd": 0.0,
+            "min": 0.03,
+            "max": 0.03
+          },
+          "dlq_capture_rate": {
+            "n": 1,
+            "n_missing": 0,
+            "mean": 0.0,
+            "sd": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "recovery_time_s": {
+            "n": 1,
+            "n_missing": 0,
+            "mean": 0.0,
+            "sd": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "throughput_msg_s": {
+            "n": 1,
+            "n_missing": 0,
+            "mean": 3.7877541456079764,
+            "sd": 0.0,
+            "min": 3.7877541456079764,
+            "max": 3.7877541456079764
+          },
+          "success_rate": {
+            "n": 1,
+            "n_missing": 0,
+            "mean": 1.0,
+            "sd": 0.0,
+            "min": 1.0,
+            "max": 1.0
+          },
+          "run_ids": [
+            "2def26bd-f01c-5939-927a-3a77331de591"
+          ]
+        },
+        {
+          "campaign": "S_vt_consumer_kill",
+          "fault_mode": "consumer_kill",
+          "visibility_timeout": 30,
+          "max_receive_count": 5,
+          "max_concurrency": 2,
+          "n_manifests": 1,
+          "backend": "localsim",
+          "loss_rate": {
+            "n": 1,
+            "n_missing": 0,
+            "mean": 0.0,
+            "sd": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "duplicate_rate": {
+            "n": 1,
+            "n_missing": 0,
+            "mean": 0.015,
+            "sd": 0.0,
+            "min": 0.015,
+            "max": 0.015
+          },
+          "dlq_capture_rate": {
+            "n": 1,
+            "n_missing": 0,
+            "mean": 0.0,
+            "sd": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "recovery_time_s": {
+            "n": 1,
+            "n_missing": 0,
+            "mean": 5.0,
+            "sd": 0.0,
+            "min": 5.0,
+            "max": 5.0
+          },
+          "throughput_msg_s": {
+            "n": 1,
+            "n_missing": 0,
+            "mean": 3.9093094469034013,
+            "sd": 0.0,
+            "min": 3.9093094469034013,
+            "max": 3.9093094469034013
+          },
+          "success_rate": {
+            "n": 1,
+            "n_missing": 0,
+            "mean": 1.0,
+            "sd": 0.0,
+            "min": 1.0,
+            "max": 1.0
+          },
+          "run_ids": [
+            "68059e99-eed3-5b4d-b416-fbbe217eebe9"
+          ]
+        },
+        {
+          "campaign": "S_vt_consumer_kill",
+          "fault_mode": "consumer_kill",
+          "visibility_timeout": 30,
+          "max_receive_count": 5,
+          "max_concurrency": 5,
+          "n_manifests": 1,
+          "backend": "localsim",
+          "loss_rate": {
+            "n": 1,
+            "n_missing": 0,
+            "mean": 0.0,
+            "sd": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "duplicate_rate": {
+            "n": 1,
+            "n_missing": 0,
+            "mean": 0.0,
+            "sd": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "dlq_capture_rate": {
+            "n": 1,
+            "n_missing": 0,
+            "mean": 0.0,
+            "sd": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "recovery_time_s": {
+            "n": 1,
+            "n_missing": 0,
+            "mean": 0.0,
+            "sd": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "throughput_msg_s": {
+            "n": 1,
+            "n_missing": 0,
+            "mean": 10.206954104306012,
+            "sd": 0.0,
+            "min": 10.206954104306012,
+            "max": 10.206954104306012
+          },
+          "success_rate": {
+            "n": 1,
+            "n_missing": 0,
+            "mean": 1.0,
+            "sd": 0.0,
+            "min": 1.0,
+            "max": 1.0
+          },
+          "run_ids": [
+            "a0870dd4-63e5-535f-807c-95c5abd33ddc"
+          ]
+        },
+        {
+          "campaign": "S_vt_consumer_kill",
+          "fault_mode": "consumer_kill",
+          "visibility_timeout": 90,
+          "max_receive_count": 5,
+          "max_concurrency": 2,
+          "n_manifests": 1,
+          "backend": "localsim",
+          "loss_rate": {
+            "n": 1,
+            "n_missing": 0,
+            "mean": 0.0,
+            "sd": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "duplicate_rate": {
+            "n": 1,
+            "n_missing": 0,
+            "mean": 0.005,
+            "sd": 0.0,
+            "min": 0.005,
+            "max": 0.005
+          },
+          "dlq_capture_rate": {
+            "n": 1,
+            "n_missing": 0,
+            "mean": 0.0,
+            "sd": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "recovery_time_s": {
+            "n": 1,
+            "n_missing": 0,
+            "mean": 0.0,
+            "sd": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "throughput_msg_s": {
+            "n": 1,
+            "n_missing": 0,
+            "mean": 10.117733728114604,
+            "sd": 0.0,
+            "min": 10.117733728114604,
+            "max": 10.117733728114604
+          },
+          "success_rate": {
+            "n": 1,
+            "n_missing": 0,
+            "mean": 1.0,
+            "sd": 0.0,
+            "min": 1.0,
+            "max": 1.0
+          },
+          "run_ids": [
+            "9d435f8d-6fae-509a-b290-191b44553432"
+          ]
+        },
+        {
+          "campaign": "S_vt_consumer_kill",
+          "fault_mode": "consumer_kill",
+          "visibility_timeout": 90,
+          "max_receive_count": 5,
+          "max_concurrency": 5,
+          "n_manifests": 1,
+          "backend": "localsim",
+          "loss_rate": {
+            "n": 1,
+            "n_missing": 0,
+            "mean": 0.0,
+            "sd": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "duplicate_rate": {
+            "n": 1,
+            "n_missing": 0,
+            "mean": 0.0,
+            "sd": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "dlq_capture_rate": {
+            "n": 1,
+            "n_missing": 0,
+            "mean": 0.0,
+            "sd": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "recovery_time_s": {
+            "n": 1,
+            "n_missing": 0,
+            "mean": 0.0,
+            "sd": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "throughput_msg_s": {
+            "n": 1,
+            "n_missing": 0,
+            "mean": 1.8044216428294695,
+            "sd": 0.0,
+            "min": 1.8044216428294695,
+            "max": 1.8044216428294695
+          },
+          "success_rate": {
+            "n": 1,
+            "n_missing": 0,
+            "mean": 1.0,
+            "sd": 0.0,
+            "min": 1.0,
+            "max": 1.0
+          },
+          "run_ids": [
+            "0b15b367-c74b-5bed-a851-7abea33070ee"
+          ]
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "localsim only; not live AWS",
+    "n=3 confirmatory on the same 4 lite cells as configs/live_key_cells.yaml"
+  ]
+}

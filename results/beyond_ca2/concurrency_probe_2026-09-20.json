@@ -1,0 +1,317 @@
+{
+  "probe": "beyond-CA2 live SQS gate",
+  "collected_at": "2026-09-20T14:14:29.739987+00:00",
+  "region": "eu-west-1",
+  "identity": {
+    "Account": "922384915031",
+    "Arn": "arn:aws:iam::922384915031:root"
+  },
+  "account_limit": {
+    "TotalCodeSize": 322122547200,
+    "CodeSizeUnzipped": 262144000,
+    "CodeSizeZipped": 52428800,
+    "ConcurrentExecutions": 10,
+    "UnreservedConcurrentExecutions": 10
+  },
+  "functions": [
+    {
+      "Name": "sflad-orders-api",
+      "Reserved": null
+    },
+    {
+      "Name": "coldstart-study-nodejs-optimised",
+      "Reserved": null
+    },
+    {
+      "Name": "coldstart-study-warm-control",
+      "Reserved": null
+    },
+    {
+      "Name": "idem-eval-fn",
+      "Reserved": null
+    },
+    {
+      "Name": "coldstart-study-python-bytecode",
+      "Reserved": null
+    },
+    {
+      "Name": "coldstart-study-java-default",
+      "Reserved": null
+    },
+    {
+      "Name": "coldstart-study-java-optimised",
+      "Reserved": null
+    },
+    {
+      "Name": "coldstart-study-warm-target",
+      "Reserved": null
+    },
+    {
+      "Name": "coldstart-study-python-default",
+      "Reserved": null
+    },
+    {
+      "Name": "coldstart-study-nodejs-default",
+      "Reserved": null
+    },
+    {
+      "Name": "coldstart-study-python-optimised",
+      "Reserved": null
+    }
+  ],
+  "sqs_queues": {},
+  "concurrent_executions_datapoints": [
+    {
+      "Timestamp": "2026-09-20T19:29:00+05:30",
+      "Maximum": 4.0,
+      "Unit": "Count"
+    },
+    {
+      "Timestamp": "2026-09-20T19:30:00+05:30",
+      "Maximum": 4.0,
+      "Unit": "Count"
+    },
+    {
+      "Timestamp": "2026-09-20T19:31:00+05:30",
+      "Maximum": 4.0,
+      "Unit": "Count"
+    },
+    {
+      "Timestamp": "2026-09-20T19:32:00+05:30",
+      "Maximum": 4.0,
+      "Unit": "Count"
+    },
+    {
+      "Timestamp": "2026-09-20T19:33:00+05:30",
+      "Maximum": 4.0,
+      "Unit": "Count"
+    },
+    {
+      "Timestamp": "2026-09-20T19:34:00+05:30",
+      "Maximum": 4.0,
+      "Unit": "Count"
+    },
+    {
+      "Timestamp": "2026-09-20T19:35:00+05:30",
+      "Maximum": 4.0,
+      "Unit": "Count"
+    },
+    {
+      "Timestamp": "2026-09-20T19:36:00+05:30",
+      "Maximum": 4.0,
+      "Unit": "Count"
+    },
+    {
+      "Timestamp": "2026-09-20T19:37:00+05:30",
+      "Maximum": 4.0,
+      "Unit": "Count"
+    },
+    {
+      "Timestamp": "2026-09-20T19:38:00+05:30",
+      "Maximum": 4.0,
+      "Unit": "Count"
+    },
+    {
+      "Timestamp": "2026-09-20T19:39:00+05:30",
+      "Maximum": 4.0,
+      "Unit": "Count"
+    },
+    {
+      "Timestamp": "2026-09-20T19:40:00+05:30",
+      "Maximum": 4.0,
+      "Unit": "Count"
+    },
+    {
+      "Timestamp": "2026-09-20T19:41:00+05:30",
+      "Maximum": 4.0,
+      "Unit": "Count"
+    },
+    {
+      "Timestamp": "2026-09-20T19:42:00+05:30",
+      "Maximum": 4.0,
+      "Unit": "Count"
+    },
+    {
+      "Timestamp": "2026-09-20T19:43:00+05:30",
+      "Maximum": 4.0,
+      "Unit": "Count"
+    }
+  ],
+  "idem_eval_fn_invocations_datapoints": [
+    {
+      "Timestamp": "2026-09-20T19:29:00+05:30",
+      "Sum": 109.0,
+      "Unit": "Count"
+    },
+    {
+      "Timestamp": "2026-09-20T19:30:00+05:30",
+      "Sum": 118.0,
+      "Unit": "Count"
+    },
+    {
+      "Timestamp": "2026-09-20T19:31:00+05:30",
+      "Sum": 116.0,
+      "Unit": "Count"
+    },
+    {
+      "Timestamp": "2026-09-20T19:32:00+05:30",
+      "Sum": 123.0,
+      "Unit": "Count"
+    },
+    {
+      "Timestamp": "2026-09-20T19:33:00+05:30",
+      "Sum": 120.0,
+      "Unit": "Count"
+    },
+    {
+      "Timestamp": "2026-09-20T19:34:00+05:30",
+      "Sum": 119.0,
+      "Unit": "Count"
+    },
+    {
+      "Timestamp": "2026-09-20T19:35:00+05:30",
+      "Sum": 119.0,
+      "Unit": "Count"
+    },
+    {
+      "Timestamp": "2026-09-20T19:36:00+05:30",
+      "Sum": 119.0,
+      "Unit": "Count"
+    },
+    {
+      "Timestamp": "2026-09-20T19:37:00+05:30",
+      "Sum": 120.0,
+      "Unit": "Count"
+    },
+    {
+      "Timestamp": "2026-09-20T19:38:00+05:30",
+      "Sum": 117.0,
+      "Unit": "Count"
+    },
+    {
+      "Timestamp": "2026-09-20T19:39:00+05:30",
+      "Sum": 125.0,
+      "Unit": "Count"
+    },
+    {
+      "Timestamp": "2026-09-20T19:40:00+05:30",
+      "Sum": 119.0,
+      "Unit": "Count"
+    },
+    {
+      "Timestamp": "2026-09-20T19:41:00+05:30",
+      "Sum": 102.0,
+      "Unit": "Count"
+    },
+    {
+      "Timestamp": "2026-09-20T19:42:00+05:30",
+      "Sum": 114.0,
+      "Unit": "Count"
+    },
+    {
+      "Timestamp": "2026-09-20T19:43:00+05:30",
+      "Sum": 103.0,
+      "Unit": "Count"
+    }
+  ],
+  "account_throttles_datapoints": [
+    {
+      "Timestamp": "2026-09-20T19:43:00+05:30",
+      "Sum": 0.0,
+      "Unit": "Count"
+    },
+    {
+      "Timestamp": "2026-09-20T19:34:00+05:30",
+      "Sum": 0.0,
+      "Unit": "Count"
+    },
+    {
+      "Timestamp": "2026-09-20T19:42:00+05:30",
+      "Sum": 0.0,
+      "Unit": "Count"
+    },
+    {
+      "Timestamp": "2026-09-20T19:33:00+05:30",
+      "Sum": 0.0,
+      "Unit": "Count"
+    },
+    {
+      "Timestamp": "2026-09-20T19:32:00+05:30",
+      "Sum": 0.0,
+      "Unit": "Count"
+    },
+    {
+      "Timestamp": "2026-09-20T19:41:00+05:30",
+      "Sum": 0.0,
+      "Unit": "Count"
+    },
+    {
+      "Timestamp": "2026-09-20T19:40:00+05:30",
+      "Sum": 0.0,
+      "Unit": "Count"
+    },
+    {
+      "Timestamp": "2026-09-20T19:31:00+05:30",
+      "Sum": 0.0,
+      "Unit": "Count"
+    },
+    {
+      "Timestamp": "2026-09-20T19:30:00+05:30",
+      "Sum": 0.0,
+      "Unit": "Count"
+    },
+    {
+      "Timestamp": "2026-09-20T19:39:00+05:30",
+      "Sum": 0.0,
+      "Unit": "Count"
+    },
+    {
+      "Timestamp": "2026-09-20T19:29:00+05:30",
+      "Sum": 0.0,
+      "Unit": "Count"
+    },
+    {
+      "Timestamp": "2026-09-20T19:38:00+05:30",
+      "Sum": 0.0,
+      "Unit": "Count"
+    },
+    {
+      "Timestamp": "2026-09-20T19:37:00+05:30",
+      "Sum": 0.0,
+      "Unit": "Count"
+    },
+    {
+      "Timestamp": "2026-09-20T19:36:00+05:30",
+      "Sum": 0.0,
+      "Unit": "Count"
+    },
+    {
+      "Timestamp": "2026-09-20T19:35:00+05:30",
+      "Sum": 0.0,
+      "Unit": "Count"
+    }
+  ],
+  "vikas_function": [
+    {
+      "Name": "idem-eval-fn",
+      "Reserved": null
+    }
+  ],
+  "anji_sqs_rr_functions": [],
+  "decision": {
+    "live_round": "skipped",
+    "reason": "shared-account ConcurrentExecutions budget occupied by Vikas idem-eval-fn",
+    "account_concurrent_executions_limit": 10,
+    "unreserved_concurrent_executions": 10,
+    "observed_max_concurrent_executions_15min": 4.0,
+    "idem_eval_fn_invocations_15min": 1743.0,
+    "anji_esm_max_concurrency_default": 5,
+    "headroom_if_anji_applied": 1.0,
+    "anji_sqs_rr_functions_present": []
+  },
+  "notes": [
+    "No student IDs in Terraform names (prefix sqs-rr).",
+    "Live n=3 not executed; do not invent live metrics.",
+    "Vikas campaign_r5 deliveries.jsonl still growing at probe time."
+  ]
+}

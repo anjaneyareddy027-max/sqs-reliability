@@ -1,0 +1,5 @@
+run_id,campaign,arm,load_profile,fault_mode,visibility_timeout,max_receive_count,batch_size,delivery_delay,repeat,loss_rate,duplicate_rate,dlq_capture_rate,success_rate,stranded_rate,recovery_time_s,recovery_time_visible_s,throughput_msg_s,latency_p50_s,latency_p95_s,usd_total
+61d37936-8bd8-516e-a5ff-918231467af7,L_mrc_unhandled_error,queue,normal,unhandled_error,30,5,10,0,0,0.0,0.035,0.0,1.0,0.0,,2.50882887840271,2.3345387888359417,1.1931042671203613,47.373193848133084,0.0003557449782481666
+84eba0b2-62ac-5448-aa5b-1fb14a63e52d,L_mrc_unhandled_error,queue,normal,unhandled_error,30,1,10,0,0,0.0,0.0,0.18,0.865,0.0,,2.3817882537841797,3.8935655588856544,1.206352949142456,3.050018405914307,0.00031625786135725
+55d55073-8262-501f-a790-2b76eec19fca,L_vt_consumer_kill,queue,normal,consumer_kill,90,5,10,0,0,0.0,0.015,0.0,1.0,0.0,,2.7053470611572266,1.5536029433967387,1.0886203050613403,7.364266777038344,0.00038533969754416664
+5b47cda4-ced7-5753-8d25-f4596ff4c688,L_vt_consumer_kill,queue,normal,consumer_kill,30,5,10,0,0,0.0,0.0,0.0,1.0,0.0,2.6083712577819824,2.6083712577819824,2.375803117180091,1.2573939561843872,19.23876583576151,0.00040140376288633325

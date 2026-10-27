@@ -1,0 +1,265 @@
+{
+  "campaign": "initial_eval_1",
+  "config": "configs/live_key_cells.yaml",
+  "region": "eu-west-1",
+  "iac": "terraform",
+  "backend": "live",
+  "max_concurrency_deployed": 2,
+  "runs": 4,
+  "wall_time_s_total": 793.0,
+  "usd_total_sum": 0.0013188621820520831,
+  "destroy_status": "destroyed_after_round",
+  "terraform_resources_after": 0,
+  "collected_at": "2026-09-21T12:25:25.244654+00:00",
+  "tags": {
+    "project": "sqs-reliability-recovery",
+    "managed_by": "terraform",
+    "purpose": "research-eval"
+  },
+  "cells": [
+    {
+      "run_id": "55d55073-8262-501f-a790-2b76eec19fca",
+      "backend": "live",
+      "measurement_kind": "live AWS",
+      "campaign": "L_vt_consumer_kill",
+      "fault_mode": "consumer_kill",
+      "visibility_timeout": 90,
+      "max_receive_count": 5,
+      "batch_size": 10,
+      "order_count": null,
+      "loss_rate": 0.0,
+      "duplicate_rate": 0.015,
+      "dlq_capture_rate": 0.0,
+      "recovery_time_s": 2.6094820499420166,
+      "throughput_msg_s": 1.5297056059513883,
+      "success_rate": 1.0,
+      "usd_total": 0.0003542844711470833,
+      "started_at": "2026-09-21T12:12:30+00:00",
+      "finished_at": "2026-09-21T12:16:38+00:00",
+      "manifest": "results/live/initial_eval_1/manifests/55d55073-8262-501f-a790-2b76eec19fca.json",
+      "cw_invocations": 34.0,
+      "dynamo_event_writes": 203,
+      "cw_errors": 3.0
+    },
+    {
+      "run_id": "5b47cda4-ced7-5753-8d25-f4596ff4c688",
+      "backend": "live",
+      "measurement_kind": "live AWS",
+      "campaign": "L_vt_consumer_kill",
+      "fault_mode": "consumer_kill",
+      "visibility_timeout": 30,
+      "max_receive_count": 5,
+      "batch_size": 10,
+      "order_count": null,
+      "loss_rate": 0.0,
+      "duplicate_rate": 0.025,
+      "dlq_capture_rate": 0.0,
+      "recovery_time_s": 3.122983932495117,
+      "throughput_msg_s": 2.979308462130073,
+      "success_rate": 1.0,
+      "usd_total": 0.00033497633513249994,
+      "started_at": "2026-09-21T12:09:37+00:00",
+      "finished_at": "2026-09-21T12:12:30+00:00",
+      "manifest": "results/live/initial_eval_1/manifests/5b47cda4-ced7-5753-8d25-f4596ff4c688.json",
+      "cw_invocations": 30.0,
+      "dynamo_event_writes": 205,
+      "cw_errors": 1.0
+    },
+    {
+      "run_id": "61d37936-8bd8-516e-a5ff-918231467af7",
+      "backend": "live",
+      "measurement_kind": "live AWS",
+      "campaign": "L_mrc_unhandled_error",
+      "fault_mode": "unhandled_error",
+      "visibility_timeout": 30,
+      "max_receive_count": 5,
+      "batch_size": 10,
+      "order_count": null,
+      "loss_rate": 0.0,
+      "duplicate_rate": 0.08,
+      "dlq_capture_rate": 0.0,
+      "recovery_time_s": 39.32883882522583,
+      "throughput_msg_s": 2.313353641771422,
+      "success_rate": 1.0,
+      "usd_total": 0.00035194531996216667,
+      "started_at": "2026-09-21T12:19:31+00:00",
+      "finished_at": "2026-09-21T12:22:50+00:00",
+      "manifest": "results/live/initial_eval_1/manifests/61d37936-8bd8-516e-a5ff-918231467af7.json",
+      "cw_invocations": 41.0,
+      "dynamo_event_writes": 216,
+      "cw_errors": 6.0
+    },
+    {
+      "run_id": "84eba0b2-62ac-5448-aa5b-1fb14a63e52d",
+      "backend": "live",
+      "measurement_kind": "live AWS",
+      "campaign": "L_mrc_unhandled_error",
+      "fault_mode": "unhandled_error",
+      "visibility_timeout": 30,
+      "max_receive_count": 1,
+      "batch_size": 10,
+      "order_count": null,
+      "loss_rate": 0.0,
+      "duplicate_rate": 0.0,
+      "dlq_capture_rate": 0.23,
+      "recovery_time_s": null,
+      "throughput_msg_s": 4.687827502361901,
+      "success_rate": 0.805,
+      "usd_total": 0.0002776560558103333,
+      "started_at": "2026-09-21T12:16:38+00:00",
+      "finished_at": "2026-09-21T12:19:31+00:00",
+      "manifest": "results/live/initial_eval_1/manifests/84eba0b2-62ac-5448-aa5b-1fb14a63e52d.json",
+      "cw_invocations": 35.0,
+      "dynamo_event_writes": 161,
+      "cw_errors": 7.0
+    }
+  ],
+  "vs_prior_lite_key_cells": [
+    {
+      "cell": {
+        "campaign": "L_vt_consumer_kill",
+        "fault_mode": "consumer_kill",
+        "vt": 90,
+        "mrc": 5
+      },
+      "loss_rate": {
+        "initial_eval_1": 0.0,
+        "prior_key_cells": 0.0
+      },
+      "duplicate_rate": {
+        "initial_eval_1": 0.015,
+        "prior_key_cells": 0.005
+      },
+      "dlq_capture_rate": {
+        "initial_eval_1": 0.0,
+        "prior_key_cells": 0.0
+      },
+      "recovery_time_s": {
+        "initial_eval_1": 2.6094820499420166,
+        "prior_key_cells": 7.531581878662109
+      },
+      "throughput_msg_s": {
+        "initial_eval_1": 1.5297056059513883,
+        "prior_key_cells": 1.5373
+      },
+      "success_rate": {
+        "initial_eval_1": 1.0,
+        "prior_key_cells": 1.0
+      }
+    },
+    {
+      "cell": {
+        "campaign": "L_vt_consumer_kill",
+        "fault_mode": "consumer_kill",
+        "vt": 30,
+        "mrc": 5
+      },
+      "loss_rate": {
+        "initial_eval_1": 0.0,
+        "prior_key_cells": 0.0
+      },
+      "duplicate_rate": {
+        "initial_eval_1": 0.025,
+        "prior_key_cells": 0.015
+      },
+      "dlq_capture_rate": {
+        "initial_eval_1": 0.0,
+        "prior_key_cells": 0.0
+      },
+      "recovery_time_s": {
+        "initial_eval_1": 3.122983932495117,
+        "prior_key_cells": 2.343076705932617
+      },
+      "throughput_msg_s": {
+        "initial_eval_1": 2.979308462130073,
+        "prior_key_cells": 2.8244
+      },
+      "success_rate": {
+        "initial_eval_1": 1.0,
+        "prior_key_cells": 1.0
+      }
+    },
+    {
+      "cell": {
+        "campaign": "L_mrc_unhandled_error",
+        "fault_mode": "unhandled_error",
+        "vt": 30,
+        "mrc": 5
+      },
+      "loss_rate": {
+        "initial_eval_1": 0.0,
+        "prior_key_cells": 0.0
+      },
+      "duplicate_rate": {
+        "initial_eval_1": 0.08,
+        "prior_key_cells": 0.05
+      },
+      "dlq_capture_rate": {
+        "initial_eval_1": 0.0,
+        "prior_key_cells": 0.0
+      },
+      "recovery_time_s": {
+        "initial_eval_1": 39.32883882522583,
+        "prior_key_cells": 28.506457090377808
+      },
+      "throughput_msg_s": {
+        "initial_eval_1": 2.313353641771422,
+        "prior_key_cells": 2.9202
+      },
+      "success_rate": {
+        "initial_eval_1": 1.0,
+        "prior_key_cells": 1.0
+      }
+    },
+    {
+      "cell": {
+        "campaign": "L_mrc_unhandled_error",
+        "fault_mode": "unhandled_error",
+        "vt": 30,
+        "mrc": 1
+      },
+      "loss_rate": {
+        "initial_eval_1": 0.0,
+        "prior_key_cells": 0.0
+      },
+      "duplicate_rate": {
+        "initial_eval_1": 0.0,
+        "prior_key_cells": 0.0
+      },
+      "dlq_capture_rate": {
+        "initial_eval_1": 0.23,
+        "prior_key_cells": 0.16
+      },
+      "recovery_time_s": {
+        "initial_eval_1": null,
+        "prior_key_cells": null
+      },
+      "throughput_msg_s": {
+        "initial_eval_1": 4.687827502361901,
+        "prior_key_cells": 7.1222
+      },
+      "success_rate": {
+        "initial_eval_1": 0.805,
+        "prior_key_cells": 0.91
+      }
+    }
+  ],
+  "notes": [
+    "ONE initial live evaluation after CA2=100 gate; lite 4 cells x n=1; not final-3.",
+    "Deployed with ESM max_concurrency=2 (shared ConcurrentExecutions limit=10).",
+    "Stack destroyed and verified absent (Lambda/SQS/DynamoDB ResourceNotFound).",
+    "Directional smoke only; confirmatory H1\u2013H3 remain localsim (350 packaging-deduped)."
+  ],
+  "rubric70_notes": {
+    "analyse_vs_RQ": "Lite live cells vary VT under consumer_kill and MRC under unhandled_error \u2014 matches RQ IVs/DVs (loss, dup, DLQ, recovery, thr).",
+    "vs_prior_lite_round": "Directional consistency: loss=0 all cells; MRC=1 shows DLQ capture (0.23 vs prior 0.16); MRC=5 shows dups without DLQ.",
+    "negative_or_mixed": [
+      "VT\u2192recovery not monotone this n=1 round (VT30 recovery 3.12s vs VT90 2.61s); prior lite had 2.34s vs 7.53s. Lite protocol does not recover campaign-A 1:1 VT law.",
+      "MRC=1 success_rate 0.805 (prior 0.91) \u2014 worse delivery under aggressive DLQ; trade-off against loss=0.",
+      "Deployed ESM max_concurrency=2 (was default 5 previously); throughput on some cells lower (expected shared-budget caution)."
+    ],
+    "vs_Kyrychenko_baseline": "Steady-state throughput-optimising guidance is not the DV here; under fault, MRC=1 trades success for DLQ capture \u2014 reliability under failure is not implied by no-fault config alone (aligns with Obj 3 / H3 framing). Confirmatory tests remain localsim H1\u2013H3.",
+    "limitations": "n=1 smoke; 200 orders; max_concurrency=2; not final-3; not packaging-deduped 350-cell power.",
+    "stats": "No new Holm tests on this 4-cell live set (underpowered). Authoritative stats: results/summary/stats_H1_H2_H3.json."
+  }
+}

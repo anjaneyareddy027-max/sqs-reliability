@@ -1,0 +1,14 @@
+{
+  "max_cell_sd_recovery_s": 2.581988897471612,
+  "max_cell_sd_loss_rate": 0.0,
+  "max_cell_sd_duplicate_rate": 0.01934737676415904,
+  "mde_recovery_s": 30.0,
+  "mde_loss_rate": 0.005,
+  "mde_duplicate_rate": 0.02,
+  "needed_for_recovery": 1,
+  "needed_for_loss": 2,
+  "recommended_repeats_confirmatory": 3,
+  "needed_for_duplicates_exploratory": 15,
+  "plan_repeats": 5,
+  "plan_ok": true
+}

@@ -1,0 +1,127 @@
+{
+  "measurement_kind": "live vs localsim fidelity (lite n=1 vs campaign rows)",
+  "confirmatory_live": false,
+  "cells": [
+    {
+      "fault_mode": "consumer_kill",
+      "visibility_timeout": 30,
+      "max_receive_count": 5,
+      "live_n": 1,
+      "sim_n": 40,
+      "sim_visibility_timeout": 30,
+      "match": "exact",
+      "live_order_count": 200,
+      "sim_campaigns": [
+        "A_vt_consumer_kill",
+        "E_guidance_transfer",
+        "F_arms_under_fault"
+      ],
+      "live_loss": 0.0,
+      "sim_loss_mean": 0.0,
+      "live_dup": 0.015,
+      "sim_dup_mean": 0.09749999999999996,
+      "sim_dup_p_live": 0.0,
+      "live_dlq": 0.0,
+      "sim_dlq_mean": 0.0,
+      "sim_dlq_p_live": 1.0,
+      "live_recovery_s": 2.343076705932617,
+      "sim_recovery_mean_s": 33.75,
+      "note": "absolute recovery not scale-matched (live 200 orders vs localsim ~3600)"
+    },
+    {
+      "fault_mode": "consumer_kill",
+      "visibility_timeout": 90,
+      "max_receive_count": 5,
+      "live_n": 1,
+      "sim_n": 10,
+      "sim_visibility_timeout": 60,
+      "match": "nearest_vt=60",
+      "live_order_count": 200,
+      "sim_campaigns": [
+        "A_vt_consumer_kill"
+      ],
+      "live_loss": 0.0,
+      "sim_loss_mean": 0.0,
+      "live_dup": 0.005,
+      "sim_dup_mean": 0.07727777777777775,
+      "sim_dup_p_live": 0.0,
+      "live_dlq": 0.0,
+      "sim_dlq_mean": 0.0,
+      "sim_dlq_p_live": 1.0,
+      "live_recovery_s": 7.531581878662109,
+      "sim_recovery_mean_s": 61.0,
+      "note": "absolute recovery not scale-matched (live 200 orders vs localsim ~3600)"
+    },
+    {
+      "fault_mode": "unhandled_error",
+      "visibility_timeout": 30,
+      "max_receive_count": 1,
+      "live_n": 1,
+      "sim_n": 16,
+      "sim_visibility_timeout": 30,
+      "match": "exact",
+      "live_order_count": 200,
+      "sim_campaigns": [
+        "B_mrc_unhandled_error",
+        "H_vt_mrc_grid"
+      ],
+      "live_loss": 0.0,
+      "sim_loss_mean": 0.0,
+      "live_dup": 0.0,
+      "sim_dup_mean": 0.0,
+      "sim_dup_p_live": 1.0,
+      "live_dlq": 0.16,
+      "sim_dlq_mean": 0.29288194444444443,
+      "sim_dlq_p_live": 0.0,
+      "live_recovery_s": null,
+      "sim_recovery_mean_s": 31.875,
+      "note": "absolute recovery not scale-matched (live 200 orders vs localsim ~3600)"
+    },
+    {
+      "fault_mode": "unhandled_error",
+      "visibility_timeout": 30,
+      "max_receive_count": 5,
+      "live_n": 1,
+      "sim_n": 20,
+      "sim_visibility_timeout": 30,
+      "match": "exact",
+      "live_order_count": 200,
+      "sim_campaigns": [
+        "B_mrc_unhandled_error",
+        "F_arms_under_fault"
+      ],
+      "live_loss": 0.0,
+      "sim_loss_mean": 0.0,
+      "live_dup": 0.05,
+      "sim_dup_mean": 0.13205555555555554,
+      "sim_dup_p_live": 0.0,
+      "live_dlq": 0.0,
+      "sim_dlq_mean": 0.0,
+      "sim_dlq_p_live": 1.0,
+      "live_recovery_s": 28.506457090377808,
+      "sim_recovery_mean_s": 33.0,
+      "note": "absolute recovery not scale-matched (live 200 orders vs localsim ~3600)"
+    }
+  ],
+  "direction": {
+    "consumer_kill_recovery_vt90_gt_vt30": {
+      "live": true,
+      "sim": true
+    },
+    "unhandled_error_dlq_mrc1_gt_mrc5": {
+      "live": true,
+      "sim": true
+    },
+    "unhandled_error_dup_mrc5_gt_mrc1": {
+      "live": true,
+      "sim": true
+    },
+    "loss_zero_all_four_live": true,
+    "relative_ranks_agree": true
+  },
+  "claims_not_made": [
+    "live confirmatory H1-H3",
+    "live n>1",
+    "absolute recovery-time equality (order_count mismatch)"
+  ]
+}

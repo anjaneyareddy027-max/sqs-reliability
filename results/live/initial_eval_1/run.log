@@ -1,0 +1,7 @@
+[cost guard] ~$0.01 for 4 runs (~0.2 h), limit $5.00
+[live] stack from terraform dir terraform
+[1/4] L_vt_consumer_kill consumer_kill vt=30 mrc=5 bs=10 loss=0.0000 dup=0.0250 dlq=0.0000 rec=3s thr=3.0/s
+[2/4] L_vt_consumer_kill consumer_kill vt=90 mrc=5 bs=10 loss=0.0000 dup=0.0150 dlq=0.0000 rec=3s thr=1.5/s
+[3/4] L_mrc_unhandled_error unhandled_error vt=30 mrc=1 bs=10 loss=0.0000 dup=0.0000 dlq=0.2300 rec=- thr=4.7/s
+[4/4] L_mrc_unhandled_error unhandled_error vt=30 mrc=5 bs=10 loss=0.0000 dup=0.0800 dlq=0.0000 rec=39s thr=2.3/s
+4 runs done in 793.0s (live); manifests in results/live/initial_eval_1/manifests, summary results/live/initial_eval_1/summary.csv
