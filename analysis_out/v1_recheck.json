@@ -1,0 +1,45 @@
+{
+  "cells": [
+    {
+      "cell": "Error, MRC 1",
+      "n": 5,
+      "drain_mean": 31.47910451889038,
+      "drain_sd": 2.2244843822320295,
+      "visible_mean": 1.7619844913482665
+    },
+    {
+      "cell": "Error, MRC 5",
+      "n": 5,
+      "drain_mean": 46.79962162971496,
+      "drain_sd": 5.5933584795174385,
+      "visible_mean": 1.6642107486724853
+    },
+    {
+      "cell": "Kill, VT 30",
+      "n": 5,
+      "drain_mean": 47.95540890693665,
+      "drain_sd": 12.50426366534251,
+      "visible_mean": 1.7763877391815186
+    },
+    {
+      "cell": "Kill, VT 90",
+      "n": 5,
+      "drain_mean": 95.04899492263795,
+      "drain_sd": 7.676994150099432,
+      "visible_mean": 1.6751013278961182
+    },
+    {
+      "cell": "No fault",
+      "n": 5,
+      "drain_mean": 21.268301343917848,
+      "drain_sd": 9.960570466659457,
+      "visible_mean": NaN
+    }
+  ],
+  "runs": 25,
+  "usd_v1": 0.009056147382837668,
+  "usd_corrected": 0.015620047382837668,
+  "order_writes_missing": 5014,
+  "runner_sqs_calls": 741,
+  "censored": 0
+}
