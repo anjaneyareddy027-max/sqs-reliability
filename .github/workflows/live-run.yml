@@ -1,0 +1,81 @@
+name: live-sqs-run
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: live-aws
+  cancel-in-progress: false
+
+env:
+  AWS_REGION: eu-west-1
+  AWS_DEFAULT_REGION: eu-west-1
+  TF_VAR_stage: ci
+  TF_VAR_max_concurrency: "2"
+
+jobs:
+  deploy-run-destroy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_wrapper: false
+
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-1
+
+      - name: Install
+        run: pip install -r requirements.txt
+
+      - name: Who am I
+        run: aws sts get-caller-identity --query Arn --output text
+
+      - name: Build Lambda packages
+        run: python scripts/build_zips.py
+
+      - name: Deploy stack (queue, DLQ, consumer, tables)
+        working-directory: terraform
+        run: |
+          terraform init -input=false
+          terraform apply -auto-approve -input=false
+
+      - name: Show deployed resources
+        run: |
+          Q=$(terraform -chdir=terraform output -raw orders_queue_url)
+          aws sqs get-queue-attributes --queue-url "$Q" --attribute-names VisibilityTimeout RedrivePolicy
+          aws lambda get-function-configuration --function-name "$(terraform -chdir=terraform output -raw consumer_function_name)" --query '{Name:FunctionName,Runtime:Runtime,Memory:MemorySize,Timeout:Timeout}'
+
+      - name: Run experiment
+        env:
+          DRY_RUN: "0"
+          PYTHONPATH: src
+        run: python -m control.experiment_runner --config configs/ci_smoke.yaml --live --terraform-dir terraform --out results
+
+      - name: Upload results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: live-results
+          path: results/
+          if-no-files-found: warn
+
+      - name: Tear down
+        if: always()
+        working-directory: terraform
+        run: terraform destroy -auto-approve -input=false
+
+      - name: Check nothing is left
+        if: always()
+        run: |
+          aws sqs list-queues --queue-name-prefix sqs-rr-ci --query QueueUrls --output text
+          aws lambda list-functions --query "Functions[?starts_with(FunctionName,'sqs-rr-ci')].FunctionName" --output text

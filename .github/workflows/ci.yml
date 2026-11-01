@@ -1,0 +1,97 @@
+name: SQS Reliability CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  test-and-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
+
+      - name: Run unit and moto integration test suite (111 tests)
+        env:
+          PYTHONPATH: "src"
+        run: |
+          python -m pytest -q -p no:warnings
+
+      - name: Build Lambda deployment packages
+        run: |
+          python scripts/build_zips.py
+
+      - name: Run v2 statistical analysis and reproducibility verifier (2467 checks)
+        run: |
+          python analysis/v2_analysis.py results_live_v2 /tmp/ci_analysis_out
+          python scripts/verify_reproducibility.py
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.9.8"
+          terraform_wrapper: false
+
+      - name: Terraform format and validation check
+        run: |
+          terraform -chdir=terraform fmt -check
+          terraform -chdir=terraform init -backend=false
+          terraform -chdir=terraform validate
+
+      - name: Verify live AWS SQS, Lambda, DynamoDB, SSM, and CloudWatch resources in eu-west-1
+        if: env.AWS_ACCESS_KEY_ID != '' && env.AWS_SECRET_ACCESS_KEY != ''
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+        run: |
+          python - << 'PY'
+          import os, boto3
+
+          region = os.environ.get("AWS_DEFAULT_REGION") or "eu-west-1"
+          sts = boto3.client("sts", region_name=region)
+          ident = sts.get_caller_identity()
+          assert ident["Account"] == "186090232114", f"Unexpected account: {ident['Account']}"
+          print(f"Verified AWS identity in account: {ident['Account']} ({ident['Arn']})")
+
+          sqs = boto3.client("sqs", region_name=region)
+          for qname in ["sqs-rr-dev-orders", "sqs-rr-dev-orders-dlq"]:
+              qurl = sqs.get_queue_url(QueueName=qname)["QueueUrl"]
+              attrs = sqs.get_queue_attributes(QueueUrl=qurl, AttributeNames=["All"])["Attributes"]
+              print(f"Verified SQS queue {qname}: VT={attrs.get('VisibilityTimeout')}s, Retention={attrs.get('MessageRetentionPeriod')}s")
+
+          lam = boto3.client("lambda", region_name=region)
+          for fname in ["sqs-rr-dev-queue-consumer", "sqs-rr-dev-sync-processor"]:
+              cfg = lam.get_function_configuration(FunctionName=fname)
+              assert cfg["Runtime"].startswith("python3."), f"Unexpected runtime: {cfg['Runtime']}"
+              print(f"Verified Lambda {fname}: Runtime={cfg['Runtime']}, Memory={cfg['MemorySize']}MB, Timeout={cfg['Timeout']}s")
+
+          ddb = boto3.client("dynamodb", region_name=region)
+          for tname in ["sqs-rr-dev-orders", "sqs-rr-dev-events"]:
+              tbl = ddb.describe_table(TableName=tname)["Table"]
+              assert tbl["TableStatus"] == "ACTIVE", f"Table {tname} status: {tbl['TableStatus']}"
+              print(f"Verified DynamoDB table {tname}: Status={tbl['TableStatus']}")
+
+          ssm = boto3.client("ssm", region_name=region)
+          param = ssm.get_parameter(Name="/sqs-rr/dev/fault")["Parameter"]
+          print(f"Verified SSM fault parameter {param['Name']} (version {param['Version']})")
+
+          logs = boto3.client("logs", region_name=region)
+          groups = logs.describe_log_groups(logGroupNamePrefix="/aws/lambda/sqs-rr-dev-queue-consumer").get("logGroups", [])
+          assert any(g["logGroupName"] == "/aws/lambda/sqs-rr-dev-queue-consumer" for g in groups), "CloudWatch log group not found"
+          print("Verified CloudWatch log group /aws/lambda/sqs-rr-dev-queue-consumer")
+          PY
